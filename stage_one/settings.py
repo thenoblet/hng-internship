@@ -16,6 +16,7 @@ GEOLOCATION_API_KEY = os.getenv('GEOLOCATION_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
+# Host set to anywhere
 ALLOWED_HOSTS = ['*']
 
 
