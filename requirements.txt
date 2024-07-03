@@ -1,7 +1,9 @@
 Django==4.2.8
 requests==2.22.0
+requests-unixsocket==0.2.0
 sqlparse==0.4.4
 six==1.14.0
 python-dotenv==1.0.1
 python-dateutil==2.7.3
 ip2location-io==1.0.0
+Werkzeug==2.1.1
