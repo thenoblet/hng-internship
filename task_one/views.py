@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings 
 import ip2locationio
 import requests
 
@@ -31,7 +32,7 @@ def hello(request):
 
 
 def get_location(ip):
-        configuration = ip2locationio.Configuration("GEOLOCATION_API_KEY")
+        configuration = ip2locationio.Configuration(settings.GEOLOCATION_API_KEY)
         ipgeolocation = ip2locationio.IPGeolocation(configuration)
         
         try:
@@ -43,7 +44,8 @@ def get_location(ip):
 
 def get_weather(city):
         try:
-                response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={WEATHER_API_KEY}&units=metric')
+                WEATHER_API = settings.WEATHER_API_KEY
+                response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={WEATHER_API}&units=metric')
                 weather_data = response.json()
                 return weather_data['main']['temp']
         except Exception as e:
