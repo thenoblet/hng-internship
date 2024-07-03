@@ -3,4 +3,5 @@ ip2location-io==1.0.0
 requests==2.22.0
 sqlparse==0.4.4
 six==1.14.0
+python-dotenv==1.0.1
 python-dateutil==2.7.3
