@@ -1,27 +1,37 @@
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import ip2locationio
 import requests
 
 
+@csrf_exempt
 def hello(request):
+        if request.method == "GET":
+                name = request.GET.get('visitor_name', 'Guest')
+                
+                x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+                if x_forwarded_for:
+                        client_ip = x_forwarded_for.split(',')[0]
+                else:
+                        client_ip = request.META.get('REMOTE_ADDR', '')
+                
+                client_city = get_location(client_ip)
+                temperature = get_weather(client_city)
+                
+                response_data = {
+        		"client_ip": client_ip,
+        		"client_city": client_city,
+        		"greeting": f"Hello, {name}!, the weather is {temperature} degree Celsius in {client_city}."
+        	}
+                
+                return JsonResponse(response_data, status=200)
         
-        name = request.GET.get('visitor_name', 'Guest')
-        client_ip = request.META.get('REMOTE_ADDR', '')
-        client_city = get_location(client_ip)
-        temperature = get_weather(client_city)
-        
-        response_data = {
-		"client_ip": client_ip,
-		"client_city": client_city,
-		"greeting": f"Hello, {name}!, the weather is {temperature} degree Celsius in {client_city}."
-	}
-        
-        return JsonResponse(response_data)
+        message = {"message": "Only GET requests are allowed"}
+        return JsonResponse(message, status=405)
 
 
 def get_location(ip):
-        GEOLOCATION_API_KEY = "ADB2AA9BE78EC4F52D61EDA4BB156F8A"
-        configuration = ip2locationio.Configuration(GEOLOCATION_API_KEY)
+        configuration = ip2locationio.Configuration("GEOLOCATION_API_KEY")
         ipgeolocation = ip2locationio.IPGeolocation(configuration)
         
         try:
@@ -32,7 +42,6 @@ def get_location(ip):
 
 
 def get_weather(city):
-        WEATHER_API_KEY = "5267f59717294cc8688c24d664ab19ca"
         try:
                 response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={WEATHER_API_KEY}&units=metric')
                 weather_data = response.json()
