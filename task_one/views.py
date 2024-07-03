@@ -16,6 +16,9 @@ def hello(request):
                 else:
                         client_ip = request.META.get('REMOTE_ADDR', '')
                 
+                if client_ip == "127.0.0.1":
+                        client_ip = "54.237.21.65"
+                        
                 client_city = get_location(client_ip)
                 temperature = get_weather(client_city)
                 
