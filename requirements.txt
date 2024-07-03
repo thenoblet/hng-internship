@@ -1,5 +1,5 @@
 Django==4.2.8
-ip2locationio==1.0.0
+ip2location-io==1.0.0
 requests==2.22.0
 sqlparse==0.4.4
 six==1.14.0
