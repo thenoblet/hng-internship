@@ -15,7 +15,8 @@ def hello(request):
                         client_ip = x_forwarded_for.split(',')[0]
                 else:
                         client_ip = request.META.get('REMOTE_ADDR', '')
-                        
+                
+                # client_city = 'Kasoa'      
                 client_city = get_location(client_ip)
                 temperature = get_weather(client_city)
                 
@@ -45,13 +46,11 @@ def get_location(ip):
 def get_weather(city):
         try:
                 api_key = settings.WEATHER_API_KEY
-                url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
-                
-                print(f"API Key: {api_key}")
-                print(f"Request URL: {url}")
-                
+                url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+                        
                 response = requests.get(url)
                 weather_data = response.json()
-                return weather_data['main']['temp']
+                temperature = weather_data['main']['temp']
+                return temperature
         except Exception as e:
-                return 'N/A'
+                return "N/A"
