@@ -44,7 +44,7 @@ def get_location(ip):
 
 
 def get_weather(city):
-        try:
+  
                 api_key = settings.WEATHER_API_KEY
                 url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
                         
@@ -52,5 +52,3 @@ def get_weather(city):
                 weather_data = response.json()
                 temperature = weather_data['main']['temp']
                 return temperature
-        except Exception as e:
-                return "N/A"
