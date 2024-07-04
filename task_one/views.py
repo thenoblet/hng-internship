@@ -50,5 +50,5 @@ def get_weather(city):
                         
                 response = requests.get(url)
                 weather_data = response.json()
-                temperature = weather_data['main']['temp']
-                return temperature
+                # temperature = weather_data['main']['temp']
+                return weather_data
