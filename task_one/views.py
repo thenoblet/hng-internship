@@ -38,7 +38,7 @@ def hello(request):
                 
                 response_data = {
         		"client_ip": client_ip,
-        		"client_city": client_city,
+        		"location": client_city,
         		"greeting": f"Hello, {name}!, the weather is {temperature} degree Celsius in {client_city}."
         	}
                 
