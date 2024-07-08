@@ -12,9 +12,6 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 AUTH_USER_MODEL = 'users.User'
 
 ALLOWED_HOSTS = ['*']
@@ -32,6 +29,7 @@ INSTALLED_APPS = [
     
     # Third Party
     'rest_framework',
+    'pytest',
     
     #handling cors
     'corsheaders'
@@ -77,7 +75,11 @@ DATABASES = {
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT')
+        'PORT': os.getenv('DB_PORT'),
+        'TEST': {
+            'NAME': 'test_postgres',
+            'CHARSET': 'UTF-8',
+        },
     }
 }
 
@@ -105,7 +107,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    ),
+    )
 }
 
 
