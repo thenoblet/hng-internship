@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,7 +9,6 @@ from .models import User, Organisation
 from .utils import generate_refresh_token, generate_token, JWTAuthentication
 
 
-@csrf_exempt
 class UserRegistration(APIView):
     """
     API view for user registration.
@@ -47,8 +45,7 @@ class UserRegistration(APIView):
             "statusCode": 400
         }, status=status.HTTP_400_BAD_REQUEST)
 
-        
-@csrf_exempt        
+
 class UserLogin(APIView):
     """
     API view for user login.
