@@ -34,7 +34,7 @@ class UserRegistration(APIView):
                 "status": "success",
                 "message": "Registration Successful",
                 "data": {
-                    "access_token": access_token,
+                    "accessToken": access_token,
                     "user": serializer.data
                 }
             }, status=status.HTTP_201_CREATED)
