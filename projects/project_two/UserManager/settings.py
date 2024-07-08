@@ -15,6 +15,7 @@ AUTH_USER_MODEL = 'users.User'
 
 ALLOWED_HOSTS = ['*']
 
+APPEND_SLASH = True
 
 # Application definition
 INSTALLED_APPS = [
