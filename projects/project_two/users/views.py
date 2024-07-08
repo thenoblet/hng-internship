@@ -10,6 +10,16 @@ from .utils import generate_refresh_token, generate_token, JWTAuthentication
 
 
 class UserRegistration(APIView):
+    """
+    API view for user registration.
+
+    This view handles the registration of a new user. It validates the user data,
+    creates a new user, creates a default organisation for the user, and generates
+    authentication tokens for the user.
+
+    Attributes:
+        permission_classes (tuple): Specifies the permission classes for the view.
+    """
     permission_classes = (permissions.AllowAny,)
     
     def post(self, request):
@@ -38,6 +48,21 @@ class UserRegistration(APIView):
         
         
 class UserLogin(APIView):
+    """
+    API view for user login.
+
+    This view handles the login process for users. It verifies the user's email
+    and password, generates authentication tokens, and returns the user data 
+    and tokens upon successful authentication.
+
+    Attributes:
+        permission_classes (tuple): Specifies the permission classes for the view.
+
+    Methods:
+        post(request):
+            Handle POST request for user login. Verifies user credentials, 
+            generates tokens, and returns user data and tokens in the response.
+    """
     permission_classes = (permissions.AllowAny,)
     
     def post(self, request):
@@ -78,6 +103,21 @@ class UserLogin(APIView):
         
         
 class UserDetail(APIView):
+    """
+    API view for retrieving user details.
+
+    This view handles the retrieval of user details for a specified user ID.
+    It requires authentication and returns the user data upon successful 
+    retrieval.
+
+    Attributes:
+        authentication_classes (tuple): Specifies the authentication classes for the view.
+
+    Methods:
+        get(request, user_id):
+            Handle GET request to retrieve user details. Retrieves the user data 
+            for the specified user ID and returns it in the response.
+    """
     authentication_classes = (JWTAuthentication,)
     
     def get(self, request, user_id):
@@ -91,6 +131,21 @@ class UserDetail(APIView):
 
      
 class OrganisationList(APIView):
+    """
+    API view for retrieving organisations associated with the authenticated user.
+
+    This view retrieves a list of organisations that the authenticated user is 
+    associated with. Requires JWT authentication and returns the organisations' 
+    data upon successful retrieval.
+
+    Attributes:
+        authentication_classes (tuple): Specifies the authentication classes for the view.
+        permission_classes (tuple): Specifies the permission classes for the view.
+
+    Methods:
+        get(request):
+            Handle GET request to retrieve organisations associated with the authenticated user.
+    """
     authentication_classes = (JWTAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
     
@@ -128,6 +183,22 @@ class OrganisationList(APIView):
 
 
 class OrganisationDetail(APIView):
+    """
+    API view for retrieving details of a specific organisation.
+
+    This view retrieves details of a specific organisation identified by its ID 
+    (`org_id`). Requires JWT authentication and permission to access details of 
+    organisations associated with the authenticated user.
+
+    Attributes:
+        authentication_classes (tuple): Specifies the authentication classes for the view.
+        permission_classes (tuple): Specifies the permission classes for the view.
+
+    Methods:
+        get(request, org_id):
+            Handle GET request to retrieve details of a specific organisation identified 
+            by its ID (`org_id`).
+    """
     authentication_classes = (JWTAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
     
@@ -148,6 +219,22 @@ class OrganisationDetail(APIView):
 
 
 class AddUserToOrganisation(APIView):
+    """
+    API view for adding a user to an organisation.
+
+    This view allows adding a user identified by their ID (`userId`) to an organisation 
+    identified by its ID (`org_id`). Requires JWT authentication and permission to modify 
+    organisations associated with the authenticated user.
+
+    Attributes:
+        authentication_classes (tuple): Specifies the authentication classes for the view.
+        permission_classes (tuple): Specifies the permission classes for the view.
+
+    Methods:
+        post(request, org_id):
+            Handle POST request to add a user to an organisation identified by its ID 
+            (`org_id`).
+    """
     authentication_classes = (JWTAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
     
