@@ -69,13 +69,7 @@ class UserLogin(APIView):
         password = request.data.get('password')
         
         user = User.objects.filter(email=email).first()
-        if user is None:
-            raise AuthenticationFailed('User not found')
-        
-        if not user.check_password(password):
-            raise AuthenticationFailed("Incorrect Password")
-        
-        if user.is_active:
+        if user:
             access_token = generate_token(user)
             refresh_token = generate_refresh_token(user)
             
